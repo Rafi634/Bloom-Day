@@ -1,35 +1,53 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Period Tracker</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Period Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #fddde6;
+            padding: 20px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
+
     <h1>Period Tracker</h1>
-    <form id="tracker-form">
-      <label for="lastPeriodDate">Last Period Date:</label>
-      <input type="date" id="lastPeriodDate" required>
 
-      <label for="cycleLength">Cycle Length (days):</label>
-      <input type="number" id="cycleLength" min="21" max="35" required>
+    <label>Period Start Date:</label><br>
+    <input type="date" id="startDate"><br>
 
-      <label for="periodLength">Period Length (days):</label>
-      <input type="number" id="periodLength" min="2" max="7" required>
+    <label>Cycle Length (days):</label><br>
+    <input type="number" id="cycleLength" value="28"><br>
+<button onclick="calculateNextPeriod()">Predict</button>
 
-      <button type="submit">Calculate</button>
-    </form>
+    <h2 id="result"></h2>
 
-    <div id="result">
-      <h2>Next Period Prediction:</h2>
-      <p id="nextPeriod"></p>
-      <h2>Fertile Window:</h2>
-      <p id="fertileWindow"></p>
-    </div>
-  </div>
+    <script>
+        function calculateNextPeriod() {
+            let startDate = new Date(document.getElementById('startDate').value);
+            let cycleLength = parseInt(document.getElementById('cycleLength').value);
 
-  <script src="script.js"></script>
+            if (!startDate || !cycleLength) {
+                alert("Please enter valid data.");
+                return;
+            }
+
+            let nextPeriod = new Date(startDate.getTime() + (cycleLength * 24 * 60 * 60 * 1000));
+            document.getElementById('result').innerHTML = 
+                "Next Period: " + nextPeriod.toDateString();
+        }
+    </script>
+
 </body>
 </html>
+```
